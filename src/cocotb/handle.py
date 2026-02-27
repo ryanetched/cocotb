@@ -1683,6 +1683,17 @@ class StringObject(
     )
     def __str__(self) -> str:
         return self.value.decode("ascii")
+    
+class PackedObject(LogicArrayObject, HierarchyObject):
+    def __init__(self, handle, path):
+        LogicArrayObject.__init__(self, handle, path)
+        HierarchyObject.__init__(self, handle, path)
+
+    def __getattr__(self, name):
+        return HierarchyObject.__getattr__(self, name)
+    
+    def __len__(self):
+        return LogicArrayObject.__len__(self)
 
 
 _ConcreteHandleTypes = Union[
@@ -1706,7 +1717,7 @@ _handle2obj: Dict[
 _type2cls: Dict[int, Type[_ConcreteHandleTypes]] = {
     simulator.MODULE: HierarchyObject,
     simulator.STRUCTURE: HierarchyObject,
-    simulator.PACKED_STRUCTURE: LogicArrayObject,
+    simulator.PACKED_STRUCTURE: PackedObject,
     simulator.LOGIC: LogicObject,
     simulator.LOGIC_ARRAY: LogicArrayObject,
     simulator.NETARRAY: ArrayObject[Any, ValueObjectBase[Any, Any]],
