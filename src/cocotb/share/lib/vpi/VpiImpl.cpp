@@ -74,8 +74,6 @@ static gpi_objtype to_gpi_objtype(int32_t vpitype, int num_elements = 0,
         case vpiReg:
         case vpiRegBit:
         case vpiMemoryWord:
-        case vpiPackedArrayVar:
-        case vpiPackedArrayNet:
             if (is_vector || num_elements > 1) {
                 return GPI_LOGIC_ARRAY;
             } else {
@@ -87,6 +85,8 @@ static gpi_objtype to_gpi_objtype(int32_t vpitype, int num_elements = 0,
         case vpiRealVar:
             return GPI_REAL;
 
+        case vpiPackedArrayVar:
+        case vpiPackedArrayNet:
         case vpiInterfaceArray:
         case vpiRegArray:
         case vpiNetArray:
@@ -182,8 +182,6 @@ GpiObjHdl *VpiImpl::create_gpi_obj_from_handle(vpiHandle new_hdl,
         case vpiIntVar:
         case vpiIntegerVar:
         case vpiIntegerNet:
-        case vpiPackedArrayVar:
-        case vpiPackedArrayNet:
         case vpiRealVar:
         case vpiRealNet:
         case vpiStringVar:
@@ -203,6 +201,8 @@ GpiObjHdl *VpiImpl::create_gpi_obj_from_handle(vpiHandle new_hdl,
                 this, new_hdl, const_type_to_gpi_objtype(const_type), true);
             break;
         }
+        case vpiPackedArrayVar:
+        case vpiPackedArrayNet:
         case vpiRegArray:
         case vpiNetArray:
         case vpiInterfaceArray:
