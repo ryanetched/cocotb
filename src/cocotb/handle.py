@@ -1698,7 +1698,14 @@ class PackedObject(LogicArrayObject, HierarchyObject, HierarchyArrayObject):
     
     def __getitem__(self, index: int) -> ChildObjectT:
         return HierarchyArrayObject.__getitem__(self, index)
-
+    
+    def _get_handle_by_key(
+        self, key: int | str, discovery_method: GPIDiscovery
+    ) -> Union[simulator.gpi_sim_hdl, None]:
+        if type(key) == int:
+            return HierarchyArrayObject._get_handle_by_key(self, key, discovery_method)
+        elif type(key) == str:
+            return HierarchyObject._get_handle_by_key(self, key, discovery_method)
 
 _ConcreteHandleTypes = Union[
     HierarchyObject,

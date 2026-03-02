@@ -81,6 +81,14 @@ decltype(VpiIterator::iterate_over) VpiIterator::iterate_over = [] {
          {
              vpiParameter,
          }},
+        {vpiPackedArrayVar,
+        {
+            vpiStructVar, vpiStructNet, vpiMember, vpiReg, vpiNet,
+        }},
+        {vpiPackedArrayNet,
+        {
+            vpiStructVar, vpiStructNet, vpiMember, vpiReg, vpiNet,
+        }},
     };
 }();
 
