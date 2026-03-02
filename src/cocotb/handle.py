@@ -1684,11 +1684,11 @@ class StringObject(
     def __str__(self) -> str:
         return self.value.decode("ascii")
     
-class PackedObject(LogicArrayObject, HierarchyObject, ArrayObject):
+class PackedObject(LogicArrayObject, HierarchyObject, HierarchyArrayObject):
     def __init__(self, handle, path):
         LogicArrayObject.__init__(self, handle, path)
         HierarchyObject.__init__(self, handle, path)
-        ArrayObject.__init__(self, handle, path)
+        HierarchyArrayObject.__init__(self, handle, path)
 
     def __getattr__(self, name):
         return HierarchyObject.__getattr__(self, name)
@@ -1697,7 +1697,7 @@ class PackedObject(LogicArrayObject, HierarchyObject, ArrayObject):
         return LogicArrayObject.__len__(self)
     
     def __getitem__(self, index: int) -> ChildObjectT:
-        return ArrayObject.__getitem__(self, index)
+        return HierarchyArrayObject.__getitem__(self, index)
 
 
 _ConcreteHandleTypes = Union[
